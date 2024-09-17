@@ -162,7 +162,7 @@ namespace NumbersGame
         {
             Random rnd = new Random();
 
-            string[] negativeRespons = new string[]{ "Nej det var fel", "hej", "hej då", "halloj!", "ja" }.;
+            string[] negativeRespons = new string[]{ "Nej det var fel", "hej", "hej då", "halloj!", "ja" };
             string negative = negativeRespons(rnd.Next[rnd.Next]);
             return negative;
         }
