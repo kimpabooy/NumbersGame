@@ -56,7 +56,7 @@ namespace NumbersGame
                     }
                 }
                 Console.WriteLine("\nTryck på valfri tangent för att avsluta programmet...");
-                Console.ReadLine();
+                Console.ReadKey();
             }
             else 
             {
