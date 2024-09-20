@@ -163,7 +163,7 @@ namespace NumbersGame
             }
             return rightAns;
         }
-        public static string ToHighResponse()
+        private static string ToHighResponse()
         {
             Random rnd = new Random();
                         
@@ -173,11 +173,11 @@ namespace NumbersGame
             string newNegative = negativeRespons[index];
             return newNegative;
         }
-        public static string ToLowResponse()
+        private static string ToLowResponse()
         {
             Random rnd = new Random();
 
-            string[] negativeRespons = new string[5] { "Det var tyvärr lite för lågt, försök igen", "Hoppsan här vart det fel, lite högre denna gången", "Åh nej, högre! Försök igen", "Fel fel fel.. högre högre högre! Försök igen", "Inte riktigt rätt, försök igen men kanske lite höre" };
+            string[] negativeRespons = new string[5] { "Det var tyvärr lite för lågt, försök igen", "Hoppsan här vart det fel, lite högre denna gången", "Åh nej, högre! Försök igen", "Fel fel fel.. högre högre högre! Försök igen", "Inte riktigt rätt, försök igen men kanske lite högre" };
 
             int index = rnd.Next(negativeRespons.Length);
             string newNegative = negativeRespons[index];
