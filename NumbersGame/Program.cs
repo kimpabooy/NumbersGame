@@ -8,7 +8,7 @@ namespace NumbersGame
     {
         static void Main(string[] args)
         {
-            // Getting SecretNumber[0] and attemptsLeft[1] from method
+            // Getting SecretNumber[0] and attemptsLeft[1] from method Setting based on what Menu gives in return.
             int[] secretNumbAndAttempts = Settings(Menu());
 
             if (secretNumbAndAttempts[1] != 0)
@@ -19,30 +19,40 @@ namespace NumbersGame
                 Console.ReadKey();
                 Console.Clear();
 
-                bool guess = false;
                 int attempts = 0;
-                while (guess == false)
+                bool guess = false;
+                while (guess == false && secretNumbAndAttempts[1] != 0)
                 {
-                    //Console.WriteLine($"Hemliga talet: {secretNumbAndAttempts[0]}");
                     Console.Write($"Du har #{secretNumbAndAttempts[1]} försök kvar \n");
                     Console.Write("Gissa nummer: ");
                     int playerGuess = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
 
-                    // Checking the input and returning true or false.
+                    // Checking the guess input and returning true or false.
                     bool checkedGuess = CheckGuess(playerGuess, secretNumbAndAttempts[0]);
-
+                    Console.WriteLine();
                     attempts++;
                     secretNumbAndAttempts[1]--;
 
-                    // checks if user guessed to many times.
+                    // checks if user guessed to many times and exiting the program.
                     if (secretNumbAndAttempts[1] == 0)
                     {
                         Console.Clear();
                         Console.WriteLine($"\nTyvärr du lyckades inte gissa talet på {attempts} försök, det hemliga talet var {secretNumbAndAttempts[0]} :( \n");
                         guess = true;
-                    }
 
+                        Console.WriteLine("Vill du börja om? ( ja / nej ) \n");
+                        Console.Write("svar: ");
+                        string playAgain = Console.ReadLine().ToLower();
+                        if (playAgain == "ja")
+                        {
+                            Console.Clear();
+                            guess = false;
+                            secretNumbAndAttempts = Settings(Menu());
+                            Console.WriteLine();
+                        }
+                    }
+                    // Checks if user guessed the right number.
                     if (checkedGuess == true)
                     {
                         Console.Clear();
@@ -140,6 +150,13 @@ namespace NumbersGame
             {
                 SecretNumber = rnd.Next(1, 21);
                 attemptsLeft = 1;
+                suggestions[0] = SecretNumber;
+                suggestions[1] = attemptsLeft;
+            }
+            else if (chosenDifficulty == 6)
+            {
+                SecretNumber = 0;
+                attemptsLeft = 0;
                 suggestions[0] = SecretNumber;
                 suggestions[1] = attemptsLeft;
             }
