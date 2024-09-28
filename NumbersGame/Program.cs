@@ -23,16 +23,27 @@ namespace NumbersGame
                 bool guess = false;
                 while (guess == false && secretNumbAndAttempts[1] != 0)
                 {
+                    //Console.WriteLine(secretNumbAndAttempts[0]); Enable the line to see the result of secret number for debugging.
                     Console.Write($"Du har #{secretNumbAndAttempts[1]} försök kvar \n");
                     Console.Write("Gissa nummer: ");
-                    int playerGuess = Convert.ToInt32(Console.ReadLine());
+
+                    int playerGuess = 0;
+                    try
+                    {
+                        playerGuess = Convert.ToInt32(Console.ReadLine());
+
+                    }
+                    catch (System.FormatException)
+                    {
+
+                        Console.WriteLine("Detta var inget nummer, försök igen.");
+                    }
                     Console.WriteLine();
 
                     // Checking the guess input and returning true or false.
                     bool checkedGuess = CheckGuess(playerGuess, secretNumbAndAttempts[0]);
                     Console.WriteLine();
                     attempts++;
-                    secretNumbAndAttempts[1]--;
 
                     // checks if user guessed to many times and exiting the program.
                     if (secretNumbAndAttempts[1] == 0)
@@ -51,6 +62,7 @@ namespace NumbersGame
                             secretNumbAndAttempts = Settings(Menu());
                             Console.WriteLine();
                         }
+                        secretNumbAndAttempts[1]--;
                     }
                     // Checks if user guessed the right number.
                     if (checkedGuess == true)
@@ -76,39 +88,53 @@ namespace NumbersGame
         }
         public static int Menu()
         {
-            Console.WriteLine("              Välj svårighetsgrad");
-            Console.WriteLine();
-            Console.WriteLine("1.Easy");
-            Console.WriteLine("2.Medium");
-            Console.WriteLine("3.Hard");
-            Console.WriteLine("4.Expert");
-            Console.WriteLine("5.Impossible");
-            Console.WriteLine("6.Avsluta programmet\n");
-            int menu = Convert.ToInt32(Console.ReadLine());
-            Console.Clear();
-            Console.WriteLine();
-            
-            switch (menu)
+            int userChoice = 0;
+            while (userChoice == 0 && userChoice <= 6)
             {
-                case 1:
-                    Console.Write("1. Du valde: Easy\n");
-                    break;
-                case 2:
-                    Console.Write("2. Du valde: Medium\n");
-                    break;
-                case 3:
-                    Console.Write("3. Du valde: Hard\n");
-                    break;
-                case 4:
-                    Console.Write("4. Du valde: Expert\n");
-                    break;
-                case 5:
-                    Console.Write("5. Du valde: Impossible\n");
-                    break;
-                case 6:
-                    break;
+
+                Console.WriteLine("              Välj svårighetsgrad");
+                Console.WriteLine();
+                Console.WriteLine("1.Easy");
+                Console.WriteLine("2.Medium");
+                Console.WriteLine("3.Hard");
+                Console.WriteLine("4.Expert");
+                Console.WriteLine("5.Impossible");
+                Console.WriteLine("6.Avsluta programmet\n");
+                try
+                {
+                    userChoice = Convert.ToInt32(Console.ReadLine());
+
+                }
+                catch (System.FormatException)
+                {
+
+                    Console.WriteLine("Fel inmatning, försök igen.");
+                }
+                Console.Clear();
+                Console.WriteLine();
+            
+                switch (userChoice)
+                {
+                    case 1:
+                        Console.Write("1. Du valde: Easy\n");
+                        break;
+                    case 2:
+                        Console.Write("2. Du valde: Medium\n");
+                        break;
+                    case 3:
+                        Console.Write("3. Du valde: Hard\n");
+                        break;
+                    case 4:
+                        Console.Write("4. Du valde: Expert\n");
+                        break;
+                    case 5:
+                        Console.Write("5. Du valde: Impossible\n");
+                        break;
+                    case 6:
+                        break;
+                }
             }
-            return menu;
+            return userChoice;
         }
         public static int[] Settings(int setting)
         {   
@@ -194,7 +220,7 @@ namespace NumbersGame
         {
             Random rnd = new Random();
 
-            string[] negativeRespons = new string[5] { "Det var tyvärr lite för lågt, försök igen", "Hoppsan här vart det fel, lite högre denna gången", "Åh nej, högre! Försök igen", "Fel fel fel.. högre högre högre! Försök igen", "Inte riktigt rätt, försök igen men kanske lite högre" };
+            string[] negativeRespons = new string[5] { "Det var tyvärr lite för lågt, försök igen", "Hoppsan här vart det fel, lite högre denna gången", "Åh nej detta var fel, högre! Försök igen", "Fel fel fel.. högre högre högre! Försök igen", "Inte riktigt rätt, försök igen men kanske lite högre" };
 
             int index = rnd.Next(negativeRespons.Length);
             string newNegative = negativeRespons[index];
