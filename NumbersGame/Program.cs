@@ -31,11 +31,9 @@ namespace NumbersGame
                     try
                     {
                         playerGuess = Convert.ToInt32(Console.ReadLine());
-
                     }
                     catch (System.FormatException)
                     {
-
                         Console.WriteLine("Detta var inget nummer, försök igen.");
                     }
                     Console.WriteLine();
@@ -44,6 +42,7 @@ namespace NumbersGame
                     bool checkedGuess = CheckGuess(playerGuess, secretNumbAndAttempts[0]);
                     Console.WriteLine();
                     attempts++;
+                    secretNumbAndAttempts[1]--;
 
                     // checks if user guessed to many times and exiting the program.
                     if (secretNumbAndAttempts[1] == 0)
@@ -62,7 +61,6 @@ namespace NumbersGame
                             secretNumbAndAttempts = Settings(Menu());
                             Console.WriteLine();
                         }
-                        secretNumbAndAttempts[1]--;
                     }
                     // Checks if user guessed the right number.
                     if (checkedGuess == true)
@@ -219,7 +217,7 @@ namespace NumbersGame
         private static string ToLowResponse()
         {
             Random rnd = new Random();
-
+            
             string[] negativeRespons = new string[5] { "Det var tyvärr lite för lågt, försök igen", "Hoppsan här vart det fel, lite högre denna gången", "Åh nej detta var fel, högre! Försök igen", "Fel fel fel.. högre högre högre! Försök igen", "Inte riktigt rätt, försök igen men kanske lite högre" };
 
             int index = rnd.Next(negativeRespons.Length);
